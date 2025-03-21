@@ -41,7 +41,13 @@ function Main(){
   },[])
   return (
     <div className="cnt2">
-      
+      {dataArr.map((el) => (
+        <div className='cardContainer' key={el.name}>
+            <img src={el.img} alt="images" />
+            <p>{el.name}</p>
+          
+        </div>
+      ))}
     </div>
   )
 }
