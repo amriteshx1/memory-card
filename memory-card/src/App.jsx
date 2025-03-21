@@ -10,11 +10,9 @@ function Header({currentScore, bestScore}){
   )
 }
 
-function Main(){
+function Main({ setCurrentScore, setBestScore, currentScore, bestScore }){
   const [dataArr, setDataArr] = useState([]);
   const [clickedCards, setClickedCards] = useState({});
-  const [currentScore, setCurrentScore] = useState(0);
-  const [bestScore, setBestScore] = useState(0);
 
   async function image() {
     try{
@@ -86,10 +84,17 @@ function handleClick(name){
 
 
 function App(){
+  const [currentScore, setCurrentScore] = useState(0);
+  const [bestScore, setBestScore] = useState(0);
   return(
     <div className="container">
-      <Header />
-      <Main />
+      <Header currentScore={currentScore} bestScore={bestScore} />
+      <Main
+        setCurrentScore={setCurrentScore}
+        setBestScore={setBestScore}
+        currentScore={currentScore}
+        bestScore={bestScore}
+      />
     </div>
   )
 }
