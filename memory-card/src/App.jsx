@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 
-function Header(){
+function Header({currentScore, bestScore}){
   return (
     <div className="cnt1">
-
+      <p>{currentScore}</p>
+      <p>{bestScore}</p>
     </div>
   )
 }
@@ -12,6 +13,8 @@ function Header(){
 function Main(){
   const [dataArr, setDataArr] = useState([]);
   const [clickedCards, setClickedCards] = useState({});
+  const [currentScore, setCurrentScore] = useState(0);
+  const [bestScore, setBestScore] = useState(0);
 
   async function image() {
     try{
@@ -52,9 +55,15 @@ function randomize(array){
 
 function handleClick(name){
   if (clickedCards[name]) {
-    alert("Game Over! You already clicked " + name);
+    if (currentScore > bestScore) {
+      setBestScore(currentScore);
+    }
+    setCurrentScore(0);
+    setClickedCards({});
+    setDataArr(randomize(dataArr));
   }else {
     setClickedCards(prev => ({ ...prev, [name]: true }));
+    setCurrentScore(currentScore + 1);
     setDataArr(randomize(dataArr));
   }
 }
@@ -69,6 +78,7 @@ function handleClick(name){
           
         </div>
       ))}
+      <Header currentScore={currentScore} bestScore={bestScore} />
     </div>
   )
 }
