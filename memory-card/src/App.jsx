@@ -10,7 +10,35 @@ function Header(){
 }
 
 function Main(){
-  
+  const [dataArr, setDataArr] = useState([]);
+
+  async function image() {
+    try{
+      const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=15");
+      const data = await response.json();
+      const pokemon = data.results;
+      let arr = [];
+      for (const el of pokemon){
+        arr.push({name : el.name, url : el.url})
+      }
+      let newArr = [];
+      for(const el of arr){
+        const response = await fetch(el.url);
+        const data = await response.json();
+        const img = data.sprites.front_default;
+        newArr.push({name : el.name, img : img});
+      }
+      setDataArr(newArr);
+      console.log(newArr)
+    }catch(err){
+      console.log('error fetching data: ', err);
+    }
+    
+  }
+
+  useEffect(() => {
+    image();
+  },[])
   return (
     <div className="cnt2">
       
