@@ -11,6 +11,7 @@ function Header(){
 
 function Main(){
   const [dataArr, setDataArr] = useState([]);
+  let divValue = false;
 
   async function image() {
     try{
@@ -39,10 +40,28 @@ function Main(){
   useEffect(() => {
     image();
   },[])
+  
+function randomize(array){
+  let newArray = [...array];
+  for (let i = newArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+  }
+  return newArray;
+}
+
+function handleClick(name){
+  if(!divValue){
+    divValue = true;
+    setDataArr(randomize(dataArr));
+  }
+}
+
   return (
     <div className="cnt2">
       {dataArr.map((el) => (
-        <div className='cardContainer' key={el.name}>
+        <div className='cardContainer' key={el.name}
+        onClick={() => handleClick(el.name)}>
             <img src={el.img} alt="images" />
             <p>{el.name}</p>
           
