@@ -11,7 +11,7 @@ function Header(){
 
 function Main(){
   const [dataArr, setDataArr] = useState([]);
-  let divValue = false;
+  const [clickedCards, setClickedCards] = useState({});
 
   async function image() {
     try{
@@ -51,8 +51,10 @@ function randomize(array){
 }
 
 function handleClick(name){
-  if(!divValue){
-    divValue = true;
+  if (clickedCards[name]) {
+    alert("Game Over! You already clicked " + name);
+  }else {
+    setClickedCards(prev => ({ ...prev, [name]: true }));
     setDataArr(randomize(dataArr));
   }
 }
