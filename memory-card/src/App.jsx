@@ -4,8 +4,14 @@ import './App.css';
 function Header({currentScore, bestScore}){
   return (
     <div className="cnt1">
-      <p>{currentScore}</p>
-      <p>{bestScore}</p>
+      <div className="gameDetails">
+        <p className="name">Memory-Card</p>
+        <p className="details">Get points by clicking on an image but don't click on any more than once!</p>
+      </div>
+      <div className="score">
+      <p>Score: {currentScore}</p>
+      <p>Best Score: {bestScore}</p>
+      </div>
     </div>
   )
 }
@@ -15,29 +21,20 @@ function Main({ setCurrentScore, setBestScore, currentScore, bestScore }){
   const [clickedCards, setClickedCards] = useState({});
 
   async function image() {
-    try{
-      const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=15");
+    try {
+      const response = await fetch("https://digimon-api.vercel.app/api/digimon");
       const data = await response.json();
-      const pokemon = data.results;
-      let arr = [];
-      for (const el of pokemon){
-        arr.push({name : el.name, url : el.url})
-      }
-      let newArr = [];
-      for(const el of arr){
-        const response = await fetch(el.url);
-        const data = await response.json();
-        const img = data.sprites.front_default;
-        newArr.push({name : el.name, img : img});
-      }
-      setDataArr(newArr);
-      console.log(newArr)
-    }catch(err){
-      console.log('error fetching data: ', err);
+      const digimonList = data.slice(0, 15).map(el => ({
+        name: el.name,
+        img: el.img
+      }));
+  
+      setDataArr(digimonList);
+    } catch (err) {
+      console.log("error fetching data: ", err);
     }
-    
   }
-
+  
   useEffect(() => {
     image();
   },[])
@@ -68,15 +65,17 @@ function handleClick(name){
 
   return (
     <div className="cnt2">
-      {dataArr.map((el) => (
+      {dataArr.length === 0 ? (
+      <p className="loading-text">Loading Game...</p>
+    ) : (
+      dataArr.map((el) => (
         <div className='cardContainer' key={el.name}
         onClick={() => handleClick(el.name)}>
             <img src={el.img} alt="images" />
             <p>{el.name}</p>
-          
         </div>
-      ))}
-      <Header currentScore={currentScore} bestScore={bestScore} />
+      ))
+    )}
     </div>
   )
 }
