@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: serif;
 }
 body,html{
     height: 100%;
@@ -11,6 +10,8 @@ body,html{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    font-family: 'Big Shoulders Stencil', serif;
+    letter-spacing: 2px;
 }
 
 .container{
@@ -18,6 +19,7 @@ body,html{
     width: 100vw;
     display: flex;
     flex-direction: column;
+    padding: 3vw;
 }
 .cnt1{
     height: 25%;
@@ -25,32 +27,53 @@ body,html{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 3vw;
 }
 .gameDetails{
     height: 100%;
     width: 80%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
+    gap: 10px;
+}
+.name{
+    font-family: inherit;
+    font-size: 4vw;
+    color: aliceblue;
+    text-shadow: 2px 2px 8px rgba(5, 5, 30, 0.9);
+
+}
+.details{
+    font-family: inherit;
+    font-size: 1.2vw;
+    color: aliceblue;
+    text-shadow: 2px 2px 8px rgba(5, 5, 30, 0.9);
+
 }
 .score{
     height: 100%;
     width: 20%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-end;
+    gap: 10px;
+    padding: 2vw;
+}
+.score > p{
+    font-family: inherit;
+    color: aliceblue;
+    text-shadow: 2px 2px 8px rgba(5, 5, 30, 0.9);
+    font-size: 1.3vw;
 }
 .cnt2{
     height: 75%;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    padding: 10px;
     gap: 15px;
 }
 .cardContainer{
@@ -60,14 +83,36 @@ body,html{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: aliceblue;
-    border: 2px solid black;
+    background-color: #0a0f2c;
+    border: 2px solid #0a0f2c;
     border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    color: aliceblue;
 }
 .cardContainer > img{
     height: 80%;
+    mix-blend-mode: multiply;
+  background-color: #0a0f2c;
 }
 .cardContainer > p{
     font-family: inherit;
-    font-size: 1vw;
+    font-size: 1.3vw;
+}
+.cardContainer:hover {
+    background-color: aliceblue;
+    color: #0a0f2c;
+    transform: scale(1.05);
+}
+
+.loading-text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: inherit;
+    color: #0a0f2c;
+    font-size: 1.5vw;
 }
