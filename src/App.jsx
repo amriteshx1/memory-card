@@ -20,24 +20,23 @@ function Main({ setCurrentScore, setBestScore, currentScore, bestScore }){
   const [dataArr, setDataArr] = useState([]);
   const [clickedCards, setClickedCards] = useState({});
 
-  async function image() {
-    try {
-      const response = await fetch("https://digimon-api.vercel.app/api/digimon");
-      const data = await response.json();
-      const digimonList = data.slice(0, 15).map(el => ({
-        name: el.name,
-        img: el.img
-      }));
-  
-      setDataArr(digimonList);
-    } catch (err) {
-      console.log("error fetching data: ", err);
-    }
-  }
-  
   useEffect(() => {
-    image();
-  },[])
+    async function fetchImages() {
+      try {
+        const response = await fetch("https://digimon-api.vercel.app/api/digimon");
+        const data = await response.json();
+        const digimonList = data.slice(0, 15).map(el => ({
+          name: el.name,
+          img: el.img
+        }));
+        setDataArr(digimonList);
+      } catch (err) {
+        alert("Error fetching data. Please try again later.");
+      }
+    }
+  
+    fetchImages();
+  }, []);  
   
 function randomize(array){
   let newArray = [...array];
@@ -58,7 +57,7 @@ function handleClick(name){
     setDataArr(randomize(dataArr));
   }else {
     setClickedCards(prev => ({ ...prev, [name]: true }));
-    setCurrentScore(currentScore + 1);
+    setCurrentScore(prev => prev + 1);
     setDataArr(randomize(dataArr));
   }
 }
