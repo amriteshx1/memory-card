@@ -94,6 +94,7 @@ body,html{
 }
 .cardContainer > img{
     height: 80%;
+    max-width: 100%;
     mix-blend-mode: multiply;
   background-color: #0a0f2c;
 }
@@ -115,4 +116,47 @@ body,html{
     font-family: inherit;
     color: #0a0f2c;
     font-size: 1.5vw;
+}
+
+/*Responsiveness*/
+
+/*Tablets*/
+
+@media (min-width: 500px) and (max-width: 1100px){
+    .cnt1{
+        flex-direction: column;
+        justify-content: center;
+    }
+    .gameDetails{
+        height: 60%;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+    .name{
+        font-size: 4vh;
+    }
+    .details{
+        font-size: 2vh;
+    }
+    .score{
+        height: 40%;
+        width: 100%;
+    }
+    .score > p{
+        font-size: 1.9vh;
+    }
+    .cardContainer{
+        height: 25%;
+        border-radius: 40%;
+    }
+    .cardContainer > img{
+        height: 70%;
+    }
+    .cardContainer > p{
+        font-size: 1.5vh;
+    }
+    .loading-text{
+        font-size: 2vh;
+    }
 }
